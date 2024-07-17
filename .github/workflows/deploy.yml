@@ -21,19 +21,19 @@ jobs:
     - name: Configure gcloud
       run: |
         echo "Configuring gcloud..."
-        gcloud config set project YOUR_PROJECT_ID
-        gcloud config set run/region YOUR_CLOUD_RUN_REGION
+        gcloud config set project imponet-7ba0a
+        gcloud config set run/region us-central1
 
     - name: Build and push container
       run: |
         echo "Building and pushing container..."
-        gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/YOUR_SERVICE_NAME
+        gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver
 
     - name: Deploy to Cloud Run
       run: |
         echo "Deploying to Cloud Run..."
-        gcloud run deploy YOUR_SERVICE_NAME \
-          --image gcr.io/YOUR_PROJECT_ID/YOUR_SERVICE_NAME \
+        gcloud run deploy imposerver \
+          --image gcr.io/imponet-7ba0a/imposerver \
           --platform managed \
-          --region YOUR_CLOUD_RUN_REGION \
+          --region us-central1
           --allow-unauthenticated
