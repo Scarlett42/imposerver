@@ -27,13 +27,7 @@ jobs:
     - name: Build and push container
       run: |
         echo "Building and pushing container..."
-        gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver --no-source
-      
-
-    # - name: Build and push container
-    #   run: |
-    #     echo "Building and pushing container..."
-    #     gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver ./imposerver_server
+        gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver ./imposerver_server
 
     - name: Deploy to Cloud Run
       run: |
