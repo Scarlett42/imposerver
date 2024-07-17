@@ -1,0 +1,28 @@
+runtime: custom
+env: flex
+
+automatic_scaling:
+  max_num_instances: 2
+
+# Configuración de los recursos
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+# Configura los puertos que expondrá tu aplicación
+network:
+  forwarded_ports:
+    - 8080/tcp
+    - 8081/tcp
+    - 8082/tcp
+
+# Comando para iniciar el servidor
+entrypoint: ./server --mode=$runmode --server-id=$serverid --logging=$logging --role=$role
+
+env_variables:
+  runmode: "production"
+  serverid: "default"
+  logging: "normal"
+  role: "monolith"
+

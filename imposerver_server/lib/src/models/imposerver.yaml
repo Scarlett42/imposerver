@@ -1,0 +1,10 @@
+### Holds a note with a text written by the user.
+class: Imposerver
+table: imposerver
+fields:
+  ### The contents of the note.
+  title: String
+  text: String
+  content: String
+  publishedOn: DateTime
+  isPrime: bool

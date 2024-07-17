@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "imposerver_client",
+            "cwd": "imposerver_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "imposerver_flutter",
+            "cwd": "imposerver_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "imposerver_flutter (profile mode)",
+            "cwd": "imposerver_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "imposerver_flutter (release mode)",
+            "cwd": "imposerver_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "imposerver_server",
+            "cwd": "imposerver_server",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
