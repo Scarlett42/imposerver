@@ -22,12 +22,12 @@ jobs:
       run: |
         echo "Configuring gcloud..."
         gcloud config set project imponet-7ba0a
-        gcloud config set run/region us-central1
+        gcloud config set run/region us-central1 
 
     - name: Build and push container
       run: |
         echo "Building and pushing container..."
-        gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver
+        gcloud builds submit --tag gcr.io/imponet-7ba0a/imposerver ./imposerver_server
 
     - name: Deploy to Cloud Run
       run: |
@@ -35,5 +35,5 @@ jobs:
         gcloud run deploy imposerver \
           --image gcr.io/imponet-7ba0a/imposerver \
           --platform managed \
-          --region us-central1
+          --region us-central1 
           --allow-unauthenticated
