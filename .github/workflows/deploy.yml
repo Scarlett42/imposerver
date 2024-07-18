@@ -18,9 +18,11 @@ jobs:
         echo "${{ secrets.GOOGLE_AUTH_TOKEN }}" | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
 
     - name: Configure gcloud
+      env:
+        ACCESS_TOKEN: ${{ secrets.GOOGLE_AUTH_TOKEN }}
       run: |
-        echo "Configuring gcloud..."
-        echo "${{ secrets.GOOGLE_AUTH_TOKEN }}" | gcloud auth activate-refresh-token adavila@imporey.com --token
+        echo $ACCESS_TOKEN > access-token.json
+        gcloud auth activate-service-account --key-file=access-token.json
         gcloud config set project imponet-7ba0a
 
     - name: Build and push Docker image
