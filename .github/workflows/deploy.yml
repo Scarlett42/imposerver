@@ -13,15 +13,21 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v2
 
-    - name: Authenticate to Docker
-      run: |
-        echo "${{ secrets.GOOGLE_AUTH_TOKEN }}" | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        version: 'latest'
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - name: Configure gcloud
       run: |
-        echo ${{ secrets.GOOGLE_AUTH_TOKEN }} > token.txt
-        gcloud auth activate-refresh-token adavila@imporey.com token.txt
+        echo "Configuring gcloud..."
         gcloud config set project imponet-7ba0a
+        gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Build and push Docker image
       run: |
