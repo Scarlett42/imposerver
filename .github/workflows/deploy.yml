@@ -45,7 +45,7 @@
 #           --allow-unauthenticated
 
 
-name: Deploy to App Engine
+name: Build and Deploy to App Engine
 
 on:
   push:
@@ -53,7 +53,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -69,9 +69,16 @@ jobs:
       run: |
         echo "Configuring gcloud..."
         gcloud config set project imponet-7ba0a
-        gcloud app create --region=us-central1 || true
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Build and push Docker image
+      run: |
+        echo "Building Docker image..."
+        docker build -t us-central1-docker.pkg.dev/imponet-7ba0a/serverpod-production-container/imposerver:latest ./imposerver_server
+        echo "Pushing Docker image..."
+        docker push us-central1-docker.pkg.dev/imponet-7ba0a/serverpod-production-container/imposerver:latest
 
     - name: Deploy to App Engine
       run: |
         echo "Deploying to App Engine..."
-        gcloud app deploy ./imposerver_server/app.yaml --quiet
+        gcloud app deploy ./imposerver_server/app.yaml --image-url=us-central1-docker.pkg.dev/imponet-7ba0a/serverpod-production-container/imposerver:latest --quiet
