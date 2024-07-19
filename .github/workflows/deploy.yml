@@ -13,12 +13,15 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v2
 
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v0.4.0'
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        workload_identity_provider: 'projects/imponet-7ba0a/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
-        service_account: 'imponet-7ba0a@appspot.gserviceaccount.com'
+        version: 'latest'
+
+    - name: Authenticate to Google Cloud
+      run: |
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > "${{ github.workspace }}/gcloud_key.json"
+        gcloud auth activate-service-account --key-file="${{ github.workspace }}/gcloud_key.json"
 
     - name: Configure gcloud
       run: |
